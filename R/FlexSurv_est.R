@@ -35,13 +35,13 @@
 #'
 #' @examples
 #' \dontrun{
-#'   results <- FlexSurv_est(X = data, intercept = TRUE, psi = 1, n_iter = 1e4)
+#'   results <- FFSurv_est(X = data, intercept = TRUE, psi = 1, n_iter = 1e4)
 #' }
 #'
 #' @references Bateni[2023]: Flexible Feed-Forward Estimation in Discrete-time Panel Survival Models.
 #'
 #' @export
-FlexSurv_est = function(X, intercept = T , psi = 1 , init_params = NA , n_iter = 1e4 , bootstrap = F, bootstrap_n_iter = 1e3, n_bootstrap=1e3){
+FFSurv_est = function(X, intercept = T , psi = 1 , init_params = NA , n_iter = 1e4 , bootstrap = F, bootstrap_n_iter = 1e3, n_bootstrap=1e3){
 
   if(intercept){
     int_0 = matrix(rep(1, nrow(X)),ncol=1)

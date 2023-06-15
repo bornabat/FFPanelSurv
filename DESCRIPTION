@@ -1,12 +1,11 @@
-Package: FlexSurv
+Package: FFPanelSurv
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Feed-Forward Estimation of Discrete-time Panel Duration Models
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Borna Bateni
+Maintainer: Borna Bateni <borna@ucla.edu>
+Description: 'FFPanelSurv' is an R package based on the paper "Bateni[2023]: Flexible Feed-Forward Estimation in Discrete-time Panel Survival Models". It provides tools to perform maximum likelihood estimation in the context of discrete-time panel survival models. The package implements a semi-parametric mixed proportional hazard model that allows for right-censoring, unobserved heterogeneity, and grouped responses. This model is specifically designed to handle multiple duration spells for each individual in a panel setup, thereby enabling analysis of longitudinal data with recurring events. It offers a closed-form feed-forward density for each spell duration conditional on previous spells. One of the key features of this package is its robustness to different choices of the baseline hazard function and different distributional assumptions of the unobserved heterogeneity. The package is well-suited for researchers in fields such as social sciences, economics, and epidemiology, where panel survival analysis is commonly applied.
+License: 
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
