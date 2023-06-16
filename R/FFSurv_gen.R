@@ -129,7 +129,10 @@ FFSurv_gen = function(n_person, n_incident, n_features = 3, beta = c(-1, .4, -1,
   hazard = baseline_eval(baseline_hazard$formula, time_seq)
   hazard = c(hazard, 1e12)
   time_seq = c(time_seq, baseline_hazard$max + psi/10)
-  if(hazard[1]!=0){hazard = c(0,hazard)}
+  if(hazard[1]!=0){
+    hazard = c(0,hazard)
+    time_seq = c(time_seq, baseline_hazard$max + psi/10)
+    }
   cum_hazard = cumsum(hazard)
   for(i in 1:nrow(exp_beta)){
     CDF_vec = 1 - exp(- het_exp_beta[i,] * cum_hazard)
