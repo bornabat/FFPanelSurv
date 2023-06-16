@@ -643,6 +643,52 @@ FFSurv_est = function(X, intercept = T , psi = 1 , init_params = NA , n_iter = 1
 
   }
 
+  table_builder = function(est, positions, exponentiate = F, init_lambda = 1e-8, lambda_decr = 0.5, max_tries = 1e3){
+    par_est  = est$par [ positions ]
+    se = NA
+    current_lambda = init_lambda
+    attempts = 0
+    singular = TRUE
+
+    while(singular && attempts < max_tries){
+      attempts = attempts + 1
+      hessian = est$hessian [ positions , positions ]
+      diag(hessian) = diag(hessian) + current_lambda
+      tryCatch({
+        se = sqrt(diag(solve(hessian)))
+        singular = FALSE
+      },
+      error = function(e){
+        current_lambda = current_lambda / lambda_decr
+      })
+    }
+    if(any(is.na(se))){
+      stop('Unable to compute the standard errors after', max_tries, 'attempts.')
+    }
+    if(bootstrap){
+      se = bootstrap_function(data, start_params = est$par, n_bootstrap = n_bootstrap, bootstrap_n_iter = bootstrap_n_iter)
+    }
+    CI_lower = par_est - qnorm(.975) * se
+    CI_upper = par_est + qnorm(.975) * se
+    wald_sts = par_est / se
+    p_values = 2 * pnorm(-abs (wald_sts) )
+
+    if(exponentiate){
+      par_est = exp(par_est)
+      se = NA
+      CI_lower = exp(CI_lower)
+      CI_upper = exp(CI_upper)
+    }
+
+    return(list('est' = par_est ,
+                'se'  = se      ,
+                'low' = CI_lower,
+                'high'= CI_upper,
+                'pval'= p_values))
+
+
+  }
+
   params_length = length(surv_est$par)
 
   beta            = table_builder(surv_est, 1: ncol(data$pred))
