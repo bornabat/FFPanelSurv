@@ -761,7 +761,11 @@ FFSurv_est = function(X, intercept = T , psi = 1 , init_params = NA , n_iter = 1
 
   return(list ( 'Coefficients' = beta_table ,
                 'Frailty'      = nu_table   ,
+<<<<<<< HEAD
                 'Baseline Hazard' = delta_est[2:length(delta_est)],
+=======
+                'Baseline Hazard' = delta_est
+>>>>>>> 365455d2d746f8a664e5edfe5613518c768346aa
                 'Baseline Hazard Plot' = delta_plot ) )
 
 }
